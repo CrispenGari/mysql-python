@@ -11,7 +11,9 @@ CREATE TABLE IF NOT EXISTS todos(
 """
 
 INSERT_COMMAND      = "INSERT INTO todos(title) VALUES(%s);"
-DELETE_COMMAND      = "DELETE FROM todos WHERE id={};"
-UPDATE_COMMAND      = "UPDATE todos SET completed={} WHERE id={};"
-ALL_TODOS_COMMAND   = "SELECT * FROM todos;"
-SINGLE_TODO_COMMAND = "SELECT * FROM todos WHERE id={} LIMIT 1;"
+DELETE_COMMAND      = "DELETE FROM todos WHERE id=%s;"
+UPDATE_COMMAND      = "UPDATE todos SET completed=%s WHERE id=%s;"
+ALL_TODOS_COMMAND   = "SELECT id, completed FROM todos;"
+SINGLE_TODO_COMMAND = "SELECT * FROM todos WHERE id=%s LIMIT 1;"
+
+# https://www.w3schools.com/sql/sql_like.asp
