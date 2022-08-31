@@ -2,6 +2,7 @@
 from mysql import connector
 from config import config
 from commands import *
+from helperfns.tables import tabulate_data
 import bcrypt
 
 conn = connector.connect(**config)
@@ -25,7 +26,25 @@ def register():
     conn.commit()
     print("You are registered")
 
+
+def login():
+    usernameOrEmail = input("Username or Email: \n").strip()
+    password = input("Password: \n").strip()
+    cursor.execute(LOGIN_USER, (usernameOrEmail, usernameOrEmail))
+    _user = cursor.fetchone()
+    if _user is None:
+        print("Invalid username or email")
+        return
+    _id, _pass = _user
+    if bcrypt.checkpw(password.encode(), _pass.encode()):
+        cursor.execute(GET_USER, (_id, ))
+        user = cursor.fetchone()
+        tabulate_data(["id", "username", "email", "photoURL", "phoneNumber"], [user], "Logged In User.")
+    else:
+        print("Invalid password")
+
 if __name__ == "__main__":
     register()
+    login()
     # close connection
     conn.close()
