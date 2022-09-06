@@ -24,7 +24,7 @@ USE relations;
 
 ```sql
 CREATE TABLE IF NOT EXISTS profiles(
-	id INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     phoneNumber VARCHAR(15),
     photoURL VARCHAR(1000),
     PRIMARY KEY(id)
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS profiles(
 4. create the user table:
 ````sql
 CREATE TABLE IF NOT EXISTS users(
-	id INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(1000) NOT NULL,
@@ -65,3 +65,26 @@ CREATE TABLE IF NOT EXISTS users(
 | profileId | int           | YES  | UNI | NULL    |                |
 +-----------+---------------+------+-----+---------+----------------+
 ```
+
+5. create table posts
+
+````sql
+CREATE TABLE IF NOT EXISTS posts(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    url VARCHAR(255),
+    userId INT NOT NULL,
+    FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
+);
+````
+
+````shell
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| title  | varchar(255) | NO   |     | NULL    |                |
+| url    | varchar(255) | YES  |     | NULL    |                |
+| userId | int          | NO   | MUL | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+````

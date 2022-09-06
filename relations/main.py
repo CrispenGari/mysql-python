@@ -43,8 +43,23 @@ def login():
     else:
         print("Invalid password")
 
+def create_post(userId:int):
+    title = input("Enter Post Title: ").strip()
+    url = input("Photo URL: ").strip()
+    cursor.execute(CREATE_POST, (title, url, userId))
+    conn.commit()
+    print("Post Created!!")
+
+def get_post():
+    id = int(input("User ID: ").strip())
+    cursor.execute(GET_POST, (id, ))
+    data = [row for row in cursor]
+    tabulate_data(["postId"] + "username, email, profileId, title, url, userId, photoURL, phoneNumber".split(", "), data, "Post of User.")
+
 if __name__ == "__main__":
-    register()
-    login()
+    # get_post()
+    # register()
+    # create_post()
+    # login()
     # close connection
     conn.close()

@@ -7,3 +7,12 @@ GET_PROFILE_MODEL = "SELECT MAX(id) FROM profiles;"
 LOGIN_USER = "SELECT id, password FROM users WHERE email=%s OR username=%s;"
 GET_USER = "SELECT users.id, username, email, photoURL, phoneNumber FROM users LEFT JOIN profiles ON profiles.id = users.profileId WHERE users.id=%s;"
 
+
+# POSTS
+
+CREATE_POST = "INSERT INTO posts(title, url, userId) VALUES(%s, %s, %s);"
+GET_POST = """
+SELECT posts.id, username, email, profileId, title, url, userId, photoURL, phoneNumber FROM 
+posts LEFT JOIN users ON users.id = posts.userId LEFT JOIN profiles ON profiles.id = users.profileId
+WHERE users.id=%s;
+"""
