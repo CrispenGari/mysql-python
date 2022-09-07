@@ -46,6 +46,10 @@ def login():
 def create_post(userId:int):
     title = input("Enter Post Title: ").strip()
     url = input("Photo URL: ").strip()
+    tags = input("Enter post tags sep by space: ").strip().split(" ")
+    tags_ids = list()
+    for tag in tags:
+        pass
     cursor.execute(CREATE_POST, (title, url, userId))
     conn.commit()
     print("Post Created!!")

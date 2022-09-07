@@ -88,3 +88,43 @@ CREATE TABLE IF NOT EXISTS posts(
 | userId | int          | NO   | MUL | NULL    |                |
 +--------+--------------+------+-----+---------+----------------+
 ````
+
+### Many To Many
+* posts and tags
+
+````sql
+CREATE TABLE IF NOT EXISTS tags(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    tag VARCHAR(255) NOT NULL
+);
+````
+
+````shell
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| tag   | varchar(255) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+````
+
+1. associate table - these table allows us to create many to many relationships between two tables.
+
+````sql
+CREATE TABLE IF NOT EXISTS posts_tags(
+    tagId INT,
+    postId INT,
+    FOREIGN KEY(tagId) REFERENCES tags(id) ON DELETE SET NULL,
+    FOREIGN KEY(postId) REFERENCES posts(id) ON DELETE CASCADE,
+    UNIQUE(tagId, postId)
+);
+````
+
+````shell
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| tagId  | int  | YES  | MUL | NULL    |       |
+| postId | int  | YES  | MUL | NULL    |       |
++--------+------+------+-----+---------+-------+
+````

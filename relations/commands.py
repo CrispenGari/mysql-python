@@ -11,6 +11,9 @@ GET_USER = "SELECT users.id, username, email, photoURL, phoneNumber FROM users L
 # POSTS
 
 CREATE_POST = "INSERT INTO posts(title, url, userId) VALUES(%s, %s, %s);"
+CREATE_TAG = "INSERT INTO tags(tag) VALUES(%s);"
+GET_TAG_ID = "SELECT MAX(id) FROM tags;"
+
 GET_POST = """
 SELECT posts.id, username, email, profileId, title, url, userId, photoURL, phoneNumber FROM 
 posts LEFT JOIN users ON users.id = posts.userId LEFT JOIN profiles ON profiles.id = users.profileId
